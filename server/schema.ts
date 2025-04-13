@@ -9,7 +9,7 @@ const typeDefs = `#graphql
   }
 
   type FindBookByIdInput {
-    id: ID!
+    id: Int!
   }
 
   type CreateBookInput {
@@ -18,8 +18,10 @@ const typeDefs = `#graphql
   }
 
   type Book {
-    id: ID!
+    id: Int!
     designation: String!
     description: String!
   }
 `;
+
+export { typeDefs };
