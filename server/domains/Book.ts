@@ -7,21 +7,17 @@ type BookEntity = {
 };
 
 const findBookByIdSchema = z.object({
-	input: z.object({
-		id: z
-			.string()
-			.transform((id) => Number.parseInt(id))
-			.refine((id) => !Number.isNaN(id)),
-	}),
+	id: z
+		.string()
+		.transform((id) => Number.parseInt(id))
+		.refine((id) => !Number.isNaN(id)),
 });
 
 type FindBookByIdRequest = z.infer<typeof findBookByIdSchema>;
 
 const createBookSchema = z.object({
-	input: z.object({
-		designation: z.string(),
-		description: z.string(),
-	}),
+	designation: z.string(),
+	description: z.string(),
 });
 
 type CreateBookRequest = z.infer<typeof createBookSchema>;

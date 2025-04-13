@@ -1,17 +1,22 @@
-const BackendApplication = () => {
-	const createMiddleware = () => {};
-	const createRoutes = () => {};
-	const createListner = () => {};
+import { ApolloServer } from "@apollo/server";
+import { BackendResolver } from "./BackendResolver";
+import { BackendTypeDef } from "./BackendTypeDef";
+import { startStandaloneServer } from "@apollo/server/standalone";
 
-	return {
-		createMiddleware,
-		createRoutes,
-		createListner,
+const BackendApplication = () => {
+	const httpServer = new ApolloServer({
+		typeDefs: BackendTypeDef().createTypeDef(),
+		resolvers: BackendResolver().createBackendResolver(),
+	});
+
+	const createListner = async () => {
+		await startStandaloneServer(httpServer, { listen: { port: 8000 } });
+		console.log(`🚀  Server ready at: ${8000}`);
 	};
+
+	return { createListner };
 };
 
-const { createMiddleware, createRoutes, createListner } = BackendApplication();
+const { createListner } = BackendApplication();
 
-createMiddleware();
-createRoutes();
 createListner();
