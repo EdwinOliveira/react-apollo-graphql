@@ -11,7 +11,7 @@ const BackendApplication = () => {
 
 	const createListner = async () => {
 		await startStandaloneServer(httpServer, { listen: { port: 8000 } });
-		console.log(`🚀  Server ready at: ${8000}`);
+		console.log(`🚀 Server ready at: ${8000}`);
 	};
 
 	return { createListner };

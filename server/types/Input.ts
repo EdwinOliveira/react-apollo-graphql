@@ -1,5 +1,3 @@
-type Input<T> = {
-	input: T;
-};
+type Input<T> = { input: T };
 
 export type { Input };
