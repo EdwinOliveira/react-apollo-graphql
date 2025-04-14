@@ -1,0 +1,8 @@
+.form-button {
+	box-shadow: 0 0 0.010rem 0.010rem currentColor;
+	padding: 0.5rem;
+
+	border-radius: 0.075rem;
+
+	cursor: pointer;
+}

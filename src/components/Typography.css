@@ -1,0 +1,4 @@
+.brand {
+	font-weight: 400;
+	font-size: clamp(0.85rem, 0.85rem + 0.5vw, 1.85rem);
+}
