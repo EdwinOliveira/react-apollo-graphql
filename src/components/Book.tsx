@@ -1,0 +1,17 @@
+import type { BookEntity } from "../graphql/domain/BookEntity";
+
+type BookProps = BookEntity;
+
+const Book: React.FC<BookProps> = ({ id, designation, description }) => {
+	return (
+		<>
+			<div className="book">
+				<span>{id}</span>
+				<span>{designation}</span>
+				<span>{description}</span>
+			</div>
+		</>
+	);
+};
+
+export default Book;

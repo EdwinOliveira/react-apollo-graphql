@@ -5,7 +5,7 @@ import type { BookEntity } from "../graphql/domain/BookEntity";
 
 const useQueryFindBooks = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [books, setBooks] = useState<Array<BookEntity>>();
+	const [books, setBooks] = useState<Array<BookEntity>>([]);
 	const [error, setError] = useState<ApolloError>();
 
 	const [findBooks] = useLazyQuery<{ findBooks: Array<BookEntity> }>(
@@ -17,7 +17,7 @@ const useQueryFindBooks = () => {
 
 		setIsLoading(loading);
 		setError(error);
-		setBooks(data?.findBooks);
+		setBooks(data?.findBooks || []);
 	};
 
 	return { executeQuery, isLoading, books, error };
