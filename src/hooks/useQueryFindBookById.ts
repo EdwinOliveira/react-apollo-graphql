@@ -1,12 +1,9 @@
 import { type ApolloError, useLazyQuery } from "@apollo/client";
 import { FIND_BOOK_BY_ID_QUERY } from "../graphql/queries/FindBookByIdQuery";
 import { useState } from "react";
+import type { BookEntity } from "../graphql/domain/BookEntity";
 
-type BookEntity = {
-	id: number;
-	designation: string;
-	description: string;
-};
+type FindBookByIdRequest = Pick<BookEntity, "id">;
 
 const useQueryFindBookById = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,9 +14,9 @@ const useQueryFindBookById = () => {
 		FIND_BOOK_BY_ID_QUERY,
 	);
 
-	const executeQuery = async (id: Pick<BookEntity, "id">) => {
+	const executeQuery = async ({ id }: FindBookByIdRequest) => {
 		const { data, loading, error } = await findBookById({
-			variables: id,
+			variables: { id },
 		});
 
 		setIsLoading(loading);
