@@ -1,5 +1,5 @@
-import FormGroup, { type FormGroupProps } from "./FormGroup";
 import "./Form.css";
+import FormGroup, { type FormGroupProps } from "./FormGroup";
 import FormButton, { type FormButtonProps } from "./FormButton";
 
 type FormProps = {

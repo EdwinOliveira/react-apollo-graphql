@@ -10,6 +10,9 @@ const useQueryFindBooks = () => {
 
 	const [findBooks] = useLazyQuery<{ findBooks: Array<BookEntity> }>(
 		FIND_BOOKS_QUERY,
+		{
+			fetchPolicy: "no-cache",
+		},
 	);
 
 	const executeQuery = async () => {
