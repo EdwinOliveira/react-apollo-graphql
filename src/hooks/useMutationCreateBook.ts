@@ -7,7 +7,9 @@ type CreateBookRequest = Pick<BookEntity, "designation" | "description">;
 const useMutationCreateBook = () => {
 	const [createBook, { loading, error }] = useMutation<{
 		createBook: null;
-	}>(CREATE_BOOK_MUTATION);
+	}>(CREATE_BOOK_MUTATION, {
+		fetchPolicy: "no-cache",
+	});
 
 	const executeQuery = async ({
 		designation,

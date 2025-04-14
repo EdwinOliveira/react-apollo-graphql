@@ -12,6 +12,9 @@ const useQueryFindBookById = () => {
 
 	const [findBookById] = useLazyQuery<{ findBookById: BookEntity }>(
 		FIND_BOOK_BY_ID_QUERY,
+		{
+			fetchPolicy: "no-cache",
+		},
 	);
 
 	const executeQuery = async ({ id }: FindBookByIdRequest) => {
