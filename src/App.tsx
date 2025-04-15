@@ -68,9 +68,16 @@ const App = () => {
 	];
 
 	const createBookFormAction = async (formData: FormData) => {
+		const designation = formData.get("designation");
+		const description = formData.get("description");
+
+		if (!designation || !description) {
+			return;
+		}
+
 		await createBook({
-			designation: formData.get("designation")?.toString() || "",
-			description: formData.get("description")?.toString() || "",
+			designation: designation.toString() || "",
+			description: description.toString() || "",
 		});
 
 		await refetchFindBooks();

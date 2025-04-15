@@ -5,7 +5,9 @@ import type { Book } from "../graphql/domain/Book";
 const useQueryFindBooks = () => {
 	const [findBooks, { data, loading: isLoading, refetch }] = useLazyQuery<{
 		findBooks: Array<Book>;
-	}>(FIND_BOOKS_QUERY);
+	}>(FIND_BOOKS_QUERY, {
+		fetchPolicy: "cache-first",
+	});
 
 	const executeQuery = async () => {
 		await findBooks();
