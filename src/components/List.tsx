@@ -1,9 +1,9 @@
 import "./List.css";
-import type { BookEntity } from "../graphql/domain/BookEntity";
+import type { Book } from "../graphql/domain/Book";
 import Row from "./Row";
 
 type ListProps = {
-	books: Array<BookEntity>;
+	books: Array<Book>;
 };
 
 const List: React.FC<ListProps> = ({ books }) => {

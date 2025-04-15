@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-type BookEntity = {
+type Book = {
 	id: number;
 	designation: string;
 	description: string;
@@ -23,13 +23,13 @@ const createBookSchema = z.object({
 type CreateBookRequest = z.infer<typeof createBookSchema>;
 
 interface BookRepository {
-	findBooks(): Array<BookEntity>;
-	findBookById(id: number): BookEntity | undefined;
+	findBooks(): Array<Book>;
+	findBookById(id: number): Book | undefined;
 	createBook(designation: string, description: string): void;
 }
 
 export {
-	type BookEntity,
+	type Book,
 	type BookRepository,
 	findBookByIdSchema,
 	type FindBookByIdRequest,

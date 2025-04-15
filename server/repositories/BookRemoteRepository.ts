@@ -1,6 +1,6 @@
-import type { BookEntity, BookRepository } from "../domains/Book";
+import type { Book, BookRepository } from "../domains/Book";
 
-const books: Array<BookEntity> = [];
+const books: Array<Book> = [];
 
 const BookRemoteRepository = (): BookRepository => {
 	return {

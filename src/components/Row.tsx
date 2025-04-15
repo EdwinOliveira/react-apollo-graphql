@@ -1,7 +1,7 @@
-import type { BookEntity } from "../graphql/domain/BookEntity";
+import type { Book } from "../graphql/domain/Book";
 import "./Row.css";
 
-type RowProps = BookEntity;
+type RowProps = Book;
 
 const Row: React.FC<RowProps> = ({ id, designation, description }) => {
 	return (

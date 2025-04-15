@@ -10,8 +10,12 @@ import { useQueryFindBookById } from "./hooks/useQueryFindBookById";
 
 const App = () => {
 	const { executeQuery: createBook } = useMutationCreateBook();
-	const { executeQuery: findBooks, books } = useQueryFindBooks();
-	const { executeQuery: findBookById, book } = useQueryFindBookById();
+	const {
+		executeQuery: findBooks,
+		refetch: refetchFindBooks,
+		cachedBooks,
+	} = useQueryFindBooks();
+	const { executeQuery: findBookById, cachedBook } = useQueryFindBookById();
 
 	const createBookFormGroups: Array<FormGroupProps> = [
 		{
@@ -69,7 +73,7 @@ const App = () => {
 			description: formData.get("description")?.toString() || "",
 		});
 
-		await findBooks();
+		await refetchFindBooks();
 	};
 
 	const findBookByIdFormAction = async (formData: FormData) => {
@@ -98,7 +102,7 @@ const App = () => {
 				formButtons={findBookByIdFormButtons}
 				formAction={findBookByIdFormAction}
 			/>
-			<List books={book ? [book] : books} />
+			<List books={cachedBook ? [cachedBook] : cachedBooks} />
 		</div>
 	);
 };

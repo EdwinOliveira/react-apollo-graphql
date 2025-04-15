@@ -1,33 +1,40 @@
-import { type ApolloError, useLazyQuery } from "@apollo/client";
+import { useApolloClient, useLazyQuery } from "@apollo/client";
 import { FIND_BOOK_BY_ID_QUERY } from "../graphql/queries/FindBookByIdQuery";
-import { useState } from "react";
-import type { BookEntity } from "../graphql/domain/BookEntity";
+import type { Book } from "../graphql/domain/Book";
+import { FIND_BOOKS_QUERY } from "../graphql/queries/FindBooksQuery";
 
-type FindBookByIdRequest = Pick<BookEntity, "id">;
+type FindBookByIdRequest = Pick<Book, "id">;
 
 const useQueryFindBookById = () => {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [book, setBook] = useState<BookEntity>();
-	const [error, setError] = useState<ApolloError>();
+	const client = useApolloClient();
 
-	const [findBookById] = useLazyQuery<{ findBookById: BookEntity }>(
-		FIND_BOOK_BY_ID_QUERY,
-		{
-			fetchPolicy: "no-cache",
-		},
-	);
+	const [findBookById, { data, loading: isLoading }] = useLazyQuery<{
+		findBookById: Book;
+	}>(FIND_BOOK_BY_ID_QUERY, {
+		fetchPolicy: "cache-first",
+	});
 
 	const executeQuery = async ({ id }: FindBookByIdRequest) => {
-		const { data, loading, error } = await findBookById({
-			variables: { id },
+		const cachedQuery = client.readQuery<{ findBooks: Array<Book> }>({
+			query: FIND_BOOKS_QUERY,
 		});
 
-		setIsLoading(loading);
-		setError(error);
-		setBook(data?.findBookById);
+		const cachedBook = cachedQuery?.findBooks.find(
+			(cachedBook) => cachedBook.id === id,
+		);
+
+		if (cachedBook) {
+			return;
+		}
+
+		await findBookById({ variables: { id } });
 	};
 
-	return { executeQuery, isLoading, book, error };
+	return {
+		executeQuery,
+		cachedBook: data?.findBookById,
+		isLoading,
+	};
 };
 
 export { useQueryFindBookById };
